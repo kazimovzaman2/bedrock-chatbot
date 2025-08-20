@@ -34,8 +34,32 @@ jobs:
     runs-on: self-hosted
     environment: production
     steps:
-      - name: Show current directory
-        run: pwd
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: List files
-        run: ls -la
+      - name: Show runner info (sanity check)
+        run: |
+          uname -a || true
+          docker --version || true
+          (docker compose version || docker-compose --version) || true
+
+      - name: Build & (re)start stack via Docker Compose
+        env:
+          DOCKER_BUILDKIT: "0"
+          COMPOSE_DOCKER_CLI_BUILD: "1"
+        run: |
+          set -e
+
+          # Stop old containers, remove orphans (keeps named volumes)
+          docker-compose -f docker-compose.yml down --remove-orphans
+
+          # Rebuild and start in the background
+          docker-compose -f docker-compose.yml up -d --build
+
+          # Show status
+          docker-compose -f docker-compose.yml ps
+
+      - name: Prune dangling images (optional)
+        run: |
+          docker image prune -f || true
