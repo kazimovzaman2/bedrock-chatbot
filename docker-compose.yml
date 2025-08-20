@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    networks:
+      - bedrock-chatbot
+    restart: always
+    image: backend
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - backend_venv:/app/.venv
+    ports:
+      - "8000:8000"
+
+volumes:
+  backend_venv:
+
+networks:
+  bedrock-chatbot:
+    driver: bridge
