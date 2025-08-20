@@ -2,6 +2,14 @@
 
 A full-stack AI chatbot application built with FastAPI backend and Streamlit frontend, featuring real-time streaming responses and multi-session chat management.
 
+## Demo
+
+
+
+https://github.com/user-attachments/assets/a74c6b23-d27d-40a7-9b9f-72ee480cf419
+
+
+
 ## ✨ Features
 
 - **Real-time Chat Streaming**: Live AI responses as they generate
