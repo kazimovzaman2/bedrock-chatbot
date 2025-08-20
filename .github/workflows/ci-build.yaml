@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [master]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci:
     name: Run Ruff Linter
@@ -22,3 +26,16 @@ jobs:
 
       - name: Ruff check
         run: uvx ruff check --output-format=github .
+
+  deploy:
+    name: Deploy (Docker Compose on self-hosted)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [ci]
+    runs-on: self-hosted
+    environment: production
+    steps:
+      - name: Show current directory
+        run: pwd
+
+      - name: List files
+        run: ls -la
