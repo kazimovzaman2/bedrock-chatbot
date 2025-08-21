@@ -2,13 +2,12 @@
 
 A full-stack AI chatbot application built with FastAPI backend and Streamlit frontend, featuring real-time streaming responses and multi-session chat management.
 
+**Backend IP:** `http://44.209.103.240:8000/docs`  
+**Frontend IP:** `http://44.209.103.240:8501`
+
 ## Demo
 
-
-
 https://github.com/user-attachments/assets/a74c6b23-d27d-40a7-9b9f-72ee480cf419
-
-
 
 ## ✨ Features
 
