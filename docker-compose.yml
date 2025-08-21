@@ -11,7 +11,7 @@ services:
     image: backend
     container_name: backend
     env_file:
-      - ./backend/.env
+      - /home/ubuntu/bedrock-env/backend/.env
     volumes:
       - ./backend:/app
       - backend_venv:/app/.venv
@@ -27,7 +27,7 @@ services:
     image: frontend
     container_name: frontend
     env_file:
-      - ./frontend/.env
+      - /home/ubuntu/bedrock-env/frontend/.env
     volumes:
       - ./frontend:/app
       - frontend_venv:/app/.venv
