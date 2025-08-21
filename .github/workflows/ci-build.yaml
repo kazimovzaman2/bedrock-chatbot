@@ -42,9 +42,9 @@ jobs:
       - name: Show runner info (sanity check)
         run: |
           uname -a
-          docker --version
-          docker info
-          (docker compose version || docker-compose --version)
+          sudo docker --version
+          sudo docker info
+          sudo docker-compose --version
 
       - name: Build & (re)start stack via Docker Compose
         env:
