@@ -33,6 +33,7 @@ jobs:
     needs: [ci]
     runs-on: self-hosted
     environment: production
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,9 +41,10 @@ jobs:
 
       - name: Show runner info (sanity check)
         run: |
-          uname -a || true
-          docker --version || true
-          (docker compose version || docker-compose --version) || true
+          uname -a
+          docker --version
+          docker info
+          (docker compose version || docker-compose --version)
 
       - name: Build & (re)start stack via Docker Compose
         env:
@@ -52,14 +54,13 @@ jobs:
           set -e
 
           # Stop old containers, remove orphans (keeps named volumes)
-          docker-compose -f docker-compose.yml down --remove-orphans
+          sudo docker-compose -f docker-compose.yml down --remove-orphans
 
           # Rebuild and start in the background
-          docker-compose -f docker-compose.yml up -d --build
+          sudo docker-compose -f docker-compose.yml up -d --build
 
           # Show status
-          docker-compose -f docker-compose.yml ps
+          sudo docker-compose -f docker-compose.yml ps
 
       - name: Prune dangling images (optional)
-        run: |
-          docker image prune -f || true
+        run: sudo docker image prune -f || true
